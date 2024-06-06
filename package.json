@@ -1,0 +1,89 @@
+{
+  "name": "vscode-gist",
+  "displayName": "GitHub Gist",
+  "description": "",
+  "version": "1.0.0",
+  "preview": false,
+  "publisher": "michaeljolley",
+  "license": "MIT",
+  "author": {
+    "name": "Michael Jolley",
+    "email": "mike@baldbeardedbuilder.com"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "extensionKind": [
+    "ui"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "gist",
+    "github",
+    "snippet",
+    "code"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaeljolley/vscode-gist"
+  },
+  "homepage": "https://github.com/michaeljolley/vscode-gist#readme",
+  "galleryBanner": {
+    "color": "#373436",
+    "theme": "dark"
+  },
+  "icon": "resources/vscode-gist.png",
+  "extensionDependencies": [],
+  "activationEvents": [],
+  "main": "./dist/main.js",
+  "contributes": {
+    "commands": [],
+    "configuration": {
+      "title": "GitHub Gist Configuration"
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/main.js --external:vscode --format=cjs --platform=node",
+    "compile": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "test-compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run test-compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "format": "npx prettier --write \"src/**/*.ts\"",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/release-notes-generator": "^12.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^18.19.34",
+    "@types/sinon": "^17.0.3",
+    "@types/tmi.js": "^1.8.3",
+    "@types/uuid": "^9.0.1",
+    "@types/vscode": "^1.90.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.4.0",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
+    "esbuild": "^0.19.12",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "mocha": "^10.4.0",
+    "prettier": "^3.3.1",
+    "semantic-release": "^22.0.12",
+    "semantic-release-stop-before-publish": "^1.0.0",
+    "semantic-release-vsce": "^5.7.1",
+    "sinon": "^17.0.1",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@vscode/extension-telemetry": "^0.9.6"
+  }
+}

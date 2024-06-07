@@ -2,30 +2,25 @@ import * as vscode from "vscode";
 import Logger from "./logger";
 
 import { Commands, LogLevel } from "./constants";
-import { getClient } from "./api/api";
-import { getSession } from "./authentication/authentication";
+import { GistViewDataProvider } from "./views/gistViewDataProvider";
 
 export async function activate(context: vscode.ExtensionContext) {
   Logger.log(LogLevel.info, "Initializing GitHub Gist extension...");
 
-  const listGistsDisposable = vscode.commands.registerCommand(
-    "vscode-gist.listGists",
-    listGists,
-  );
-  context.subscriptions.push(listGistsDisposable);
+  /**
+   * Register commands & views
+   */
+  const gistViewDataProvider = new GistViewDataProvider();
 
-  async function listGists() {
-    Logger.log(LogLevel.info, "listGists");
-    const session = await getSession(false);
-    Logger.log(LogLevel.info, `session: ${session}`);
-    if (session) {
-      const client = getClient(session.accessToken);
+  /**
+   * Register tree views within activity bar
+   */
+  const gistTreeView = vscode.window.createTreeView("gistView", {
+    treeDataProvider: gistViewDataProvider,
+    showCollapseAll: false,
+  });
 
-      const gists = await client.gists.list();
-
-      vscode.window.showInformationMessage(gists.data.length.toString());
-    }
-  }
+  context.subscriptions.push(gistTreeView);
 
   Logger.log(LogLevel.info, "...initialized.");
 }

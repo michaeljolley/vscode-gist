@@ -23,7 +23,7 @@ Go right ahead! Just submit a pull request when you're done.
 ## Pull Requests
 
 First, make sure you've forked the repository. Push to your fork and 
-[submit a pull request](https://github.com/michaeljolley/vscode-twitch-themer/compare/) 
+[submit a pull request](https://github.com/michaeljolley/vscode-gist/compare/) 
 against the `main` branch.
 
 At this point you're waiting on us. We like to at least comment on pull requests
@@ -46,4 +46,4 @@ Some things that will increase the chance that your pull request is accepted:
 - **Write/update tests.**
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 
-[readme]: https://github.com/MichaelJolley/vscode-twitch-themer/tree/main#readme
+[readme]: https://github.com/MichaelJolley/vscode-gist/tree/main#readme

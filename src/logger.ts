@@ -1,9 +1,8 @@
 import * as vscode from "vscode";
 import { LogLevel } from "./constants";
-import { Telemetry } from "./telemetry";
 
 export default abstract class Logger {
-  private static _channel = vscode.window.createOutputChannel("Twitch Themer");
+  private static _channel = vscode.window.createOutputChannel("GitHub Gist");
 
   public static log(
     logLevel: LogLevel,
@@ -41,9 +40,9 @@ export default abstract class Logger {
     if (this._channel && level !== LogLevel.debug) {
       this._channel.appendLine(log);
     }
+  }
 
-    if (level === LogLevel.error) {
-      Telemetry.sendTelemetryErrorEvent("twitch-themer-error", { message });
-    }
+  public static showLog(): void {
+    this._channel.show();
   }
 }

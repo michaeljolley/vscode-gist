@@ -34,7 +34,7 @@
     "color": "#373436",
     "theme": "dark"
   },
-  "icon": "resources/vscode-gist.png",
+  "icon": "resources/logo.png",
   "extensionDependencies": [],
   "activationEvents": [
     "*"

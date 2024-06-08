@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/michaeljolley/vscode-gist/compare/v1.0.0...v1.0.1) (2024-06-08)
+
+
+### Bug Fixes
+
+* Updating name ([ab6ac46](https://github.com/michaeljolley/vscode-gist/commit/ab6ac46d1768720cee1ca8cb4c4af1a9cedd7f5a))
+
 # 1.0.0 (2024-06-08)
 
 

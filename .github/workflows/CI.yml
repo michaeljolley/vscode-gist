@@ -9,7 +9,7 @@ on:
   # This is to catch new releases of VS Code which could cause the extension to break
   # Check every Sunday at 12 AM
   schedule:
-   - cron: 0 0 * * 0
+    - cron: 0 0 * * 0
 
 jobs:
   test:
@@ -105,4 +105,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
-          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+          # OVSX_PAT: ${{ secrets.OVSX_PAT }}

@@ -1,6 +1,6 @@
 # GitHub Gist for VS Code
 
-[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/MichaelJolley.vscode-gist)](https://marketplace.visualstudio.com/items?itemName=MichaelJolley.vscode-gist) [![Installs](https://img.shields.io/visual-studio-marketplace/i/MichaelJolley.vscode-gist?color=blue&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=MichaelJolley.vscode-gist) [![CI](https://img.shields.io/github/actions/workflow/status/michaeljolley/vscode-gist/CI.yml?logo=github)](https://github.com/michaeljolley/vscode-gist/actions/workflows/CI.yml) [![MIT](https://img.shields.io/badge/license-MIT-orange.png?color=blue&style=flat-round)](https://opensource.org/licenses/MIT)
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/MichaelJolley.vscx-gist)](https://marketplace.visualstudio.com/items?itemName=MichaelJolley.vscx-gist) [![Installs](https://img.shields.io/visual-studio-marketplace/i/MichaelJolley.vscx-gist?color=blue&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=MichaelJolley.vscx-gist) [![CI](https://img.shields.io/github/actions/workflow/status/michaeljolley/vscode-gist/CI.yml?logo=github)](https://github.com/michaeljolley/vscode-gist/actions/workflows/CI.yml) [![MIT](https://img.shields.io/badge/license-MIT-orange.png?color=blue&style=flat-round)](https://opensource.org/licenses/MIT)
 
 A Visual Studio Code extension that allows users to manage their GitHub Gists
 and integrate them into their development workflow.

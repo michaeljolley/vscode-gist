@@ -10,6 +10,12 @@ export async function activate(context: vscode.ExtensionContext) {
   /**
    * Register commands & views
    */
+
+  const newGist = () => {
+    vscode.window.showInformationMessage("new gist");
+  };
+  const c = vscode.commands.registerCommand("gist.newGist", newGist);
+
   const gistViewDataProvider = new GistViewDataProvider();
 
   /**
@@ -19,7 +25,9 @@ export async function activate(context: vscode.ExtensionContext) {
     treeDataProvider: gistViewDataProvider,
     showCollapseAll: false,
   });
+  gistTreeView.title = "";
 
+  context.subscriptions.push(c);
   context.subscriptions.push(gistTreeView);
 
   Logger.log(LogLevel.info, "...initialized.");

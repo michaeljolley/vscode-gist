@@ -7,6 +7,7 @@ import { getClient } from "../api/api";
 import { GistTreeItem } from "./trees/gistTreeItem";
 import { BaseTreeItem } from "./trees/baseTreeItem";
 import { FileTreeItem } from "./trees/fileTreeItem";
+import { Gist } from "../types/gist";
 
 export class GistViewDataProvider extends BaseTreeViewDataProvider {
   public async getChildren(element?: BaseTreeItem): Promise<vscode.TreeItem[]> {
@@ -29,13 +30,15 @@ export class GistViewDataProvider extends BaseTreeViewDataProvider {
   }
 }
 
-async function listGists(): Promise<any[]> {
-  Logger.log(LogLevel.info, "listGists");
+async function listGists(): Promise<Gist[]> {
   const session = await getSession(false);
   if (session) {
     const client = getClient(session.accessToken);
     const ghResponse = await client.gists.list();
-    return ghResponse.data;
+    return (ghResponse.data as Gist[]).sort(
+      (a, b) =>
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+    );
   }
   return [];
 }

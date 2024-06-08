@@ -39,11 +39,18 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./dist/main.js",
+  "main": "./out/extension.js",
   "contributes": {
     "configuration": {
       "title": "GitHub Gist Configuration"
     },
+    "commands": [
+      {
+        "category": "GitHub Gist",
+        "command": "gist.newGist",
+        "enablement": "view == gistView"
+      }
+    ],
     "views": {
       "gist": [
         {
@@ -58,6 +65,16 @@
           "icon": "./resources/gist.svg",
           "id": "gist",
           "title": "GitHub Gist"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "category": "GitHub Gist",
+          "command": "gist.newGist",
+          "title": "New Gist",
+          "enablement": "view == gistView"
         }
       ]
     }

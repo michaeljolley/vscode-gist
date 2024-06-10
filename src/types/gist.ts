@@ -1,5 +1,6 @@
 import { File } from "./file";
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export type Gist = {
   url: string;
   forks_url: string;

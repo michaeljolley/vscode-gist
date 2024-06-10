@@ -48,7 +48,16 @@
       {
         "category": "GitHub Gist",
         "command": "gist.newGist",
+        "title": "New Gist",
         "enablement": "view == gistView"
+      },
+      {
+        "command": "gist.refreshGists",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/icons/light/refresh.svg",
+          "dark": "resources/icons/dark/refresh.svg"
+        }
       }
     ],
     "views": {
@@ -75,6 +84,11 @@
           "command": "gist.newGist",
           "title": "New Gist",
           "enablement": "view == gistView"
+        },
+        {
+          "command": "gist.refreshGists",
+          "when": "view == gistView",
+          "group": "navigation"
         }
       ]
     }
@@ -99,6 +113,7 @@
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.19.34",
     "@types/sinon": "^17.0.3",
+    "@types/tmp": "^0.2.6",
     "@types/vscode": "^1.90.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
@@ -117,6 +132,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@octokit/rest": "^20.1.1"
+    "@octokit/rest": "^20.1.1",
+    "tmp": "^0.2.3"
   }
 }

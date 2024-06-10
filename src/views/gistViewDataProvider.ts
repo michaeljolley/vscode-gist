@@ -1,44 +1,48 @@
-import * as vscode from "vscode";
-import { BaseTreeViewDataProvider } from "./baseTreeViewDataProvider";
-import Logger from "../logger";
-import { LogLevel } from "../constants";
-import { getSession } from "../authentication/authentication";
-import { getClient } from "../api/api";
+import { Event, EventEmitter, TreeDataProvider } from "vscode";
+import { loadGists } from "../api/api";
 import { GistTreeItem } from "./trees/gistTreeItem";
 import { BaseTreeItem } from "./trees/baseTreeItem";
 import { FileTreeItem } from "./trees/fileTreeItem";
-import { Gist } from "../types/gist";
 
-export class GistViewDataProvider extends BaseTreeViewDataProvider {
-  public async getChildren(element?: BaseTreeItem): Promise<vscode.TreeItem[]> {
+export class GistViewDataProvider implements TreeDataProvider<BaseTreeItem> {
+  private _onDidChangeTreeData: EventEmitter<
+    BaseTreeItem | undefined | null | void
+  > = new EventEmitter<BaseTreeItem | undefined | null | void>();
+  readonly onDidChangeTreeData: Event<BaseTreeItem | undefined | null | void> =
+    this._onDidChangeTreeData.event;
+
+  public async getChildren(element?: BaseTreeItem): Promise<BaseTreeItem[]> {
     if (element) {
       if (element.contextValue === "gist") {
         const files = (element as GistTreeItem).gist.files;
 
-        return Object.entries(files).map(([key, value]) => {
-          return new FileTreeItem(element.id, key, value);
+        return Object.entries(files).map(([_, value]) => {
+          return new FileTreeItem(element.id, value);
         });
       }
       return [];
     }
 
-    const gists = await listGists();
+    const gists = await loadGists();
 
     return gists.map((gist: any) => {
       return new GistTreeItem(gist);
     });
   }
-}
 
-async function listGists(): Promise<Gist[]> {
-  const session = await getSession(false);
-  if (session) {
-    const client = getClient(session.accessToken);
-    const ghResponse = await client.gists.list();
-    return (ghResponse.data as Gist[]).sort(
-      (a, b) =>
-        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
-    );
+  public getTreeItem(element: BaseTreeItem): BaseTreeItem {
+    return element;
   }
-  return [];
+
+  public getParent(element?: BaseTreeItem): BaseTreeItem | undefined {
+    if (element instanceof BaseTreeItem && element.parent) {
+      return element.parent;
+    }
+
+    return undefined;
+  }
+
+  refresh(): void {
+    this._onDidChangeTreeData.fire();
+  }
 }

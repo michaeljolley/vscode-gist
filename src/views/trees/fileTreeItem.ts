@@ -1,14 +1,17 @@
 import { ThemeIcon, Uri } from "vscode";
-import { File } from "../../types/file";
 import { BaseTreeItem } from "./baseTreeItem";
+import { File } from "../../types/file";
 
 export class FileTreeItem extends BaseTreeItem {
   constructor(
     public gistId: string,
-    public key: string,
     public file: File,
   ) {
-    super(`${gistId}-${key}`, file.filename, ThemeIcon.File);
+    super(file.raw_url, file.filename, ThemeIcon.File, undefined, {
+      command: "gist.openGist",
+      title: "Open File",
+      arguments: [gistId, file],
+    });
     this.resourceUri = Uri.parse(file.raw_url, true);
   }
 }

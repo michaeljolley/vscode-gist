@@ -2,41 +2,51 @@ import * as fs from "fs";
 import * as path from "path";
 import * as tmp from "tmp";
 import { TextDocument, TextEditor } from "vscode";
+import { File } from "../types/file";
 
-const TMP_DIRECTORY_PREFIX = "vscode_gist";
+const TMP_DIRECTORY_PREFIX = "vscode_gist_ext";
 
-const dirSync = (token: string): string => {
-  const prefix = `${[TMP_DIRECTORY_PREFIX, token].join("_")}_`;
+const dirSync = (gistId: string): string => {
+  const prefix = `${[TMP_DIRECTORY_PREFIX, gistId].join("_")}_`;
   const directory = tmp.dirSync({ prefix });
-
   return directory.name;
 };
 
 export const fileSync = (
-  token: string,
+  gistId: string,
   filename: string,
   content: string,
 ): string => {
-  const directory = dirSync(token);
+  const directory = dirSync(gistId);
   const filePath = path.join(directory, filename);
   fs.writeFileSync(filePath, content);
 
   return filePath;
 };
 
-export const filesSync = (
-  token: string,
-  files: { [x: string]: { content: string } },
-): string[] => {
+export const filesSync = (gistId: string, files: File[]): string[] => {
   const filePaths: string[] = [];
-  for (const filename in files) {
-    if (files.hasOwnProperty(filename)) {
-      const { content } = files[filename];
-      filePaths.push(fileSync(token, filename, content));
-    }
+
+  const directory = dirSync(gistId);
+  fs.rmSync(directory, { recursive: true, force: true });
+
+  for (const file of files) {
+    filePaths.push(fileSync(gistId, file.filename, file.content || ""));
   }
 
   return filePaths;
+};
+
+export const filesSynced = (gistId: string, files: File[]): boolean => {
+  const directory = dirSync(gistId);
+  const existingFiles = fs.readdirSync(directory);
+  const gistFiles = files
+    .map((m) => m.filename)
+    .sort((a, b) => a.localeCompare(b));
+  if (gistFiles.length !== existingFiles.length) {
+    return false;
+  }
+  return gistFiles.toString() === existingFiles.toString();
 };
 
 export const extractTextDocumentDetails = (

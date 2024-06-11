@@ -1,5 +1,5 @@
-import { Event, EventEmitter, TreeDataProvider } from "vscode";
-import { loadGists } from "../api/api";
+import { Event, EventEmitter, ProgressLocation, TreeDataProvider, window } from "vscode";
+import { getGist, loadGists } from "../api/api";
 import { GistTreeItem } from "./trees/gistTreeItem";
 import { BaseTreeItem } from "./trees/baseTreeItem";
 import { FileTreeItem } from "./trees/fileTreeItem";
@@ -14,11 +14,28 @@ export class GistViewDataProvider implements TreeDataProvider<BaseTreeItem> {
   public async getChildren(element?: BaseTreeItem): Promise<BaseTreeItem[]> {
     if (element) {
       if (element.contextValue === "gist") {
-        const files = (element as GistTreeItem).gist.files;
+        // Get the files from the gist
+        let files: BaseTreeItem[] = [];
 
-        return Object.entries(files).map(([_, value]) => {
-          return new FileTreeItem(element.id, value);
+        await window.withProgress({
+          location: ProgressLocation.SourceControl
+        }, async (progress) => {
+          progress.report({ message: "Fetching Gist files" });
+
+          const gist = await getGist(element.id);
+
+          if (!gist) {
+            window.showErrorMessage("Failed to retrieve Gist from GitHub.");
+            return [];
+          }
+  
+          files = Object.entries(gist.files).map(([_, value]) => {
+            return new FileTreeItem(element.id, value);
+          });
+        
         });
+
+        return files;
       }
       return [];
     }

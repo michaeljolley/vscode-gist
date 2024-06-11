@@ -1,15 +1,16 @@
-import { commands, ExtensionContext, ViewColumn } from "vscode";
+import { commands, ExtensionContext } from "vscode";
 import { GistViewDataProvider } from "../views/gistViewDataProvider";
 import { openGist } from "./openGist";
 import { refreshGists } from "./refreshGists";
+import { Commands } from "../constants";
 
 export function registerCommands(
   context: ExtensionContext,
   dataProvider: GistViewDataProvider,
 ) {
-  const _openGist = commands.registerCommand("gist.openGist", openGist);
+  const _openGist = commands.registerCommand(Commands.openGist, openGist);
   const _refreshGists = commands.registerCommand(
-    "gist.refreshGists",
+    Commands.refreshGists,
     refreshGists(dataProvider),
   );
 

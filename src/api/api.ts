@@ -35,7 +35,7 @@ export const loadGists = async (): Promise<Gist[]> => {
         `Error retrieving gists: ${ghResponse.status}`,
       );
     }
-    return (ghResponse.data as Gist[]).sort(
+    return (ghResponse.data as unknown as Gist[]).sort(
       (a, b) =>
         new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
     );

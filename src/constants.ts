@@ -1,7 +1,11 @@
 /**
  * Commands provided by the extension to VS Code
  */
-export enum Commands {}
+export enum Commands {
+  newGist = "gist.newGist",
+  openGist = "gist.openGist",
+  refreshGists = "gist.refreshGists"
+}
 
 /** */
 export enum LogLevel {

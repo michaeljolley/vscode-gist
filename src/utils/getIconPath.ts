@@ -1,28 +1,33 @@
 import * as path from "path";
+import { IconPath, Uri } from "vscode";
 
-export function getIconPath(iconName: string): any {
+export function getIconPath(iconName: string): IconPath {
   return {
-    light: path.join(
-      __filename,
-      "..",
-      "..",
-      "..",
-      "..",
-      "resources",
-      "icons",
-      "light",
-      `${iconName}.svg`,
+    light: Uri.file(
+      path.join(
+        __filename,
+        "..",
+        "..",
+        "..",
+        "..",
+        "resources",
+        "icons",
+        "light",
+        `${iconName}.svg`,
+      ),
     ),
-    dark: path.join(
-      __filename,
-      "..",
-      "..",
-      "..",
-      "..",
-      "resources",
-      "icons",
-      "dark",
-      `${iconName}.svg`,
+    dark: Uri.file(
+      path.join(
+        __filename,
+        "..",
+        "..",
+        "..",
+        "..",
+        "resources",
+        "icons",
+        "dark",
+        `${iconName}.svg`,
+      ),
     ),
   };
 }

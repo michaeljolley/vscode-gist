@@ -5,7 +5,7 @@ const DEFAULT_GITHUB_API = "https://api.github.com";
 
 export function initConfiguration(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration(async (e) => {}),
+    vscode.workspace.onDidChangeConfiguration(async () => {}),
   );
 }
 

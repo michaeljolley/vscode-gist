@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import Logger from "./logger";
 
-import { Commands, LogLevel } from "./constants";
+import { LogLevel } from "./constants";
 import { GistViewDataProvider } from "./views/gistViewDataProvider";
 
 export async function activate(context: vscode.ExtensionContext) {

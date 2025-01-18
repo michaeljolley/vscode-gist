@@ -4,14 +4,10 @@ import { LogLevel } from "./constants";
 export default abstract class Logger {
   private static _channel = vscode.window.createOutputChannel("GitHub Gist");
 
-  public static log(
-    logLevel: LogLevel,
-    message: string,
-    ...optionalParams: any[]
-  ): void {
-    const captains: any = console;
+  public static log(logLevel: LogLevel, message: string): void {
+    const captains = console;
 
-    let level = logLevel || LogLevel.info;
+    const level = logLevel || LogLevel.info;
 
     const getTime = (): {
       hours: string;
@@ -35,7 +31,7 @@ export default abstract class Logger {
     const { hours, minutes, seconds } = getTime();
     const log = `[${hours}:${minutes}:${seconds}] ${message}`;
 
-    captains[level](log, ...optionalParams);
+    captains[level](log);
 
     if (this._channel && level !== LogLevel.debug) {
       this._channel.appendLine(log);
